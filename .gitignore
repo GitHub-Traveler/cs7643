@@ -10,4 +10,10 @@ dataset
 
 dataset/
 
+datasets/*
+
+datasets
+
+datasets/
+
 *.zip
