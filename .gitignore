@@ -17,3 +17,5 @@ datasets
 datasets/
 
 *.zip
+
+*.pt
