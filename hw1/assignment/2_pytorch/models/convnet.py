@@ -19,6 +19,16 @@ class CNN(nn.Module):
         #############################################################################
         # TODO: Initialize anything you need for the forward pass
         #############################################################################
+        in_channels, height, width = im_size
+        self.conv1 = nn.Conv2d(in_channels, 32, kernel_size, 2, 1)
+        self.bn1 = nn.BatchNorm2d(32)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size, 2, 1)
+        self.bn2 = nn.BatchNorm2d(64)
+        self.conv3 = nn.Conv2d(64, 64, kernel_size, 1, 1)
+        self.bn3 = nn.BatchNorm2d(64)
+        self.relu = nn.ReLU()
+        self.linear1 = nn.Linear(4096, hidden_dim)
+        self.linear2 = nn.Linear(hidden_dim, n_classes)
         pass
         #############################################################################
         #                             END OF YOUR CODE                              #
@@ -44,6 +54,20 @@ class CNN(nn.Module):
         #############################################################################
         # TODO: Implement the forward pass. This should take few lines of code.
         #############################################################################
+        hidden = self.conv1(images)
+        # print('cailonma')
+        hidden = self.bn1(hidden)
+        hidden = self.relu(hidden)
+        hidden = self.conv2(hidden)
+        hidden = self.bn2(hidden)
+        hidden = self.relu(hidden)
+        hidden = self.conv3(hidden)
+        hidden = self.bn3(hidden)
+        hidden = self.relu(hidden)
+        hidden = torch.flatten(hidden, start_dim = 1)
+        hidden = self.linear1(hidden)
+        hidden = self.relu(hidden)
+        scores = self.linear2(hidden)
         pass
         #############################################################################
         #                             END OF YOUR CODE                              #
